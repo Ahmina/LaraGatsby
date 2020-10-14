@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import {dataBaseUrlAPI} from '../data/index'
 import axios from 'axios';
 
 const MainContactMe = (props) => {
+
+    const baseUrlAPI=dataBaseUrlAPI();
 
     const [name, setName]=useState('');
     const [mail, setMail]=useState('');
@@ -28,7 +31,7 @@ const MainContactMe = (props) => {
                 mail: mail,
                 message: msg
             };
-            axios.post(`http://localhost:8001/api/newmessage`, {dataReq})
+            axios.post(`${baseUrlAPI}/newmessage`, {dataReq})
             .then(res => 
                 {
                     if(res.data.msg_env && res.data.mail){

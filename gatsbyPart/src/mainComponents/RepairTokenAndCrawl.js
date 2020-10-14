@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
+import {dataBaseUrlAPI} from '../data/index'
 import axios from 'axios';
 
 const RepairTokenAndCrawl = ({setToken, post_id, page_name}) => {
+    const baseUrlAPI=dataBaseUrlAPI();
 
     useEffect(()=>{
         let mounted=true;
@@ -14,7 +16,7 @@ const RepairTokenAndCrawl = ({setToken, post_id, page_name}) => {
 
         }
         //new craw and verify the token, and if it is not correct, change it.
-        axios.post(`http://localhost:8001/api/newcrawl`, {dataReq})
+        axios.post(`${baseUrlAPI}/newcrawl`, {dataReq})
         .then(res => {
             if(mounted){
 
@@ -36,7 +38,7 @@ const RepairTokenAndCrawl = ({setToken, post_id, page_name}) => {
         return () => mounted = false;
 
 
-    },[setToken, post_id, page_name]); //Safer.. To avoid react-hooks/exhaustive-deps warn
+    },[setToken, post_id, page_name, baseUrlAPI]); //Safer.. To avoid react-hooks/exhaustive-deps warn
 
     return (<div></div>);
 };
