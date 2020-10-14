@@ -3,37 +3,29 @@ import {Link} from 'gatsby';
 import SecondMain from './SecondMain';
 
 
-const MainHome = () => {
+const Main = (props) => {
 
     return (
         <main>
             <div className="main_blog_container">
                 <div className="main_blog_container_prime">
 
-                            <Link  className="frame_post_blog frame_post_blog_link">
-                                <h2>عنوان المقال جاتسبي</h2>
-                                <p> هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة ... هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة ...</p>
+                    {props.data.map((element, key) => {
+                        const data=element.node.frontmatter;
+                        return(
+                            <Link to={data.slug} key={key} className="frame_post_blog frame_post_blog_link">
+                                <h2>{data.title}</h2>
+                                <p>{data.description}</p>
                                 <div className="frame_post_blog_more">
-                                    <span className="more_at_date">بتاريخ: nn-nn-nn</span>
-                                    <span className="more_at_date more_author">حرره: المحرر</span>
+                                    <span className="more_at_date">بتاريخ: {data.date}</span>
+                                    <span className="more_at_date more_author">حرره: {data.author}</span>
                                 </div>
                             </Link>
-                            <Link  className="frame_post_blog frame_post_blog_link">
-                                <h2>عنوان المقال جاتسبي</h2>
-                                <p> هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة ... هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة ...</p>
-                                <div className="frame_post_blog_more">
-                                    <span className="more_at_date">بتاريخ: nn-nn-nn</span>
-                                    <span className="more_at_date more_author">حرره: المحرر</span>
-                                </div>
-                            </Link>
-                            <Link  className="frame_post_blog frame_post_blog_link">
-                                <h2>عنوان المقال جاتسبي</h2>
-                                <p> هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة ... هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة ...</p>
-                                <div className="frame_post_blog_more">
-                                    <span className="more_at_date">بتاريخ: nn-nn-nn</span>
-                                    <span className="more_at_date more_author">حرره: المحرر</span>
-                                </div>
-                            </Link>
+
+                        );
+                        
+                    })}
+
                 </div>
                 <div className="main_blog_container_second">
                     <SecondMain />
@@ -44,4 +36,4 @@ const MainHome = () => {
 };
 
 
-export default MainHome;
+export default Main;
