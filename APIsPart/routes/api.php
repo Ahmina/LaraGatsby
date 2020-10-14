@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/newcrawl', 'CrawlUserController@newCrawl');
 Route::get('/newtoken', 'AuthTokenController@createToken');
+
+Route::post('/newmessage', 'MessageController@newMessage');
