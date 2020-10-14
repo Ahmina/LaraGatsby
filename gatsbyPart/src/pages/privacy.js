@@ -1,5 +1,6 @@
 import React from "react";
 import "../style/main.css";
+import RepairTokenAndCrawl from "../mainComponents/RepairTokenAndCrawl";
 import HelmetComponent from "../components/HelmetComponent";
 import Header from "../templates/Header";
 import Footer from "../templates/Footer";
@@ -13,6 +14,7 @@ export default function Privacy() {
   }
   return (
     <div>
+      <RepairTokenAndCrawl setToken={false} post_id="0" page_name="privacy"/>
       <HelmetComponent title="Privacy Policy"/>
       <Header arrowActive="1" colorTitlesStyle={colorTitlesStyle} title1="سياسة الخصوصية" title2="مرحبا، هنا تجد كل مايتعلق بسياسة الخصوصية وأمان الإستخدام"/>
       <MainPrivacy/>

@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from 'gatsby';
 import "../style/main.css";
+import RepairTokenAndCrawl from "../mainComponents/RepairTokenAndCrawl";
 import HelmetComponent from "../components/HelmetComponent";
 import Header from "../templates/Header";
 import Footer from "../templates/Footer";
@@ -16,6 +17,7 @@ export default function Home({data}) {
   }
   return (
     <div>
+      <RepairTokenAndCrawl setToken={false} post_id="0" page_name="index"/>
       <HelmetComponent title="المدونة"/>
       <Header arrowActive="1" colorTitlesStyle={colorTitlesStyle} title1="مدونتي" title2="سأفتتحها لاحقاً.. شكراً على زيارتك"/>
       <MainHome data={allMarkdownRemark.edges}/>

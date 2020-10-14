@@ -1,5 +1,6 @@
 import React from "react";
 import "../style/main.css";
+import RepairTokenAndCrawl from "../mainComponents/RepairTokenAndCrawl";
 import HelmetComponent from "../components/HelmetComponent";
 import Header from "../templates/Header";
 import Footer from "../templates/Footer";
@@ -13,6 +14,7 @@ export default function NoteFound() {
   }
   return (
     <div>
+      <RepairTokenAndCrawl setToken={false} post_id="0" page_name="404page"/>
       <HelmetComponent title="404 - صفحة غير موجودة"/>
       <Header arrowActive="0" colorTitlesStyle={colorTitlesStyle} title1="خطأ 404" title2="خطأ في الطلب، عذرا لاتوجد هذه الصفحة"/>
       <Main404 />
