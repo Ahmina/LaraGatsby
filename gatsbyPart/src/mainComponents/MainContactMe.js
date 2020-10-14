@@ -6,6 +6,7 @@ const MainContactMe = (props) => {
     const [name, setName]=useState('');
     const [mail, setMail]=useState('');
     const [msg, setMsg]=useState('');
+    const [status, setStatus]=useState(0);
 
     const [bgName, setBgName]=useState({
         "backgroundColor": '#f8f8f8'
@@ -21,7 +22,6 @@ const MainContactMe = (props) => {
     const SendMsg=(e)=>{
         e.preventDefault();
         if(name!=='' && mail!=='' && msg!==""){
-            console.log('Yeaa');
             const dataReq={
                 token: props.token,
                 name: name,
@@ -42,9 +42,14 @@ const MainContactMe = (props) => {
                         setBgMail({"backgroundColor": "#f8f8f8"})
                         setBgMsg({"backgroundColor": "#f8f8f8"})
 
+                        setStatus(1);
 
                     }else{
-
+                        if(res.data.msg_env){
+                            setStatus(4);
+                        }else{
+                            setStatus(3);
+                        }
                     }
                 }
         
@@ -52,6 +57,7 @@ const MainContactMe = (props) => {
 
 
         }else{
+            setStatus(2);
 
             if(!name){
                 setBgName({"backgroundColor": "#fff2f2"})
@@ -68,6 +74,15 @@ const MainContactMe = (props) => {
 
     }
 
+    useEffect(()=>{
+        if(status!==0){
+            
+            setTimeout(()=>{
+                setStatus(0);
+            }, 3000)
+
+        }
+    }, [status])
 
     useEffect(()=>{
 
@@ -113,6 +128,16 @@ const MainContactMe = (props) => {
                     </div>
                 </div>
             </div>
+            {(status===1)?
+            <p className="env env_success">لقد نجح إرسال الرسالة</p>
+            :(status===2)?
+            <p className="env env_fail">لقد فشل الإرسال <br/> إملئ جميع الخانات</p>
+            :(status===3)?
+            <p className="env env_fail">لقد فشل الإرسال <br/> أعد المحاولة لاحقا</p>
+            :(status===4)?
+            <p className="env env_fail">لقد فشل الإرسال <br /> الإيميل غير صحيح</p>
+            :''}
+            
             
 
 	    </main>
