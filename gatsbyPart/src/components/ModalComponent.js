@@ -68,7 +68,6 @@ const ModalComponent = ({data, handleCloseModal}) => {
 	},[iPic]);
 
 	useEffect(()=>{
-
 		const keyboradEventListener = (e) =>{
 			if(e.key==='ArrowRight'){
 				handleNextImg(iPic, lengthPics);

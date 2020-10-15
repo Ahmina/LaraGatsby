@@ -2,7 +2,7 @@ import React from "react";
 import {graphql} from "gatsby";
 import "../style/main.css";
 import RepairTokenAndCrawl from "../mainComponents/RepairTokenAndCrawl";
-import HelmetComponent from "../components/HelmetComponent";
+import HelmetComponent from "../templates/HelmetComponent";
 import Header from "../templates/Header";
 import MainPortfolio from "../mainComponents/MainPortfolio";
 import Footer from "../templates/Footer";

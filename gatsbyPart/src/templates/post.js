@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { graphql } from "gatsby";
 import "../style/main.css";
 import RepairTokenAndCrawl from "../mainComponents/RepairTokenAndCrawl";
-import HelmetComponent from "../components/HelmetComponent";
+import HelmetComponent from "./HelmetComponent";
 import Header from "./Header";
 import Footer from "./Footer";
 

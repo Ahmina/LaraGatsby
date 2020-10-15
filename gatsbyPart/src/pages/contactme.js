@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "../style/main.css";
 import RepairTokenAndCrawl from "../mainComponents/RepairTokenAndCrawl";
-import HelmetComponent from "../components/HelmetComponent";
+import HelmetComponent from "../templates/HelmetComponent";
 import Header from "../templates/Header";
 import MainContactMe from "../mainComponents/MainContactMe";
 import Footer from "../templates/Footer";
