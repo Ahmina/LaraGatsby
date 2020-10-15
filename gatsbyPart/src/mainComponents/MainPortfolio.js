@@ -1,7 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import ModalComponent from '../components/ModalComponent';
+import RepairTokenAndCrawl from "./RepairTokenAndCrawl";
 
 
 const MainPortfolio = (props) => {
+    //This state hook and handleFunction for modal component to display all images in the project on Portfolio
+    const [show, setShow]=useState([0, '', []]);
+    const [prev, setPrev]=useState(0);
+    const handleCloseModal= ()=>{
+        setShow([0, '', []]);
+    }
+
+    //This method is more "clean"
+    useEffect(()=>{
+        document.body.style.overflow="";    
+    }, [show]);
 
     return (
         <main>
@@ -38,10 +51,10 @@ const MainPortfolio = (props) => {
                                     </div>
                                     <div className="show_img">
                                         <div className="show_container_button">
-                                            <button className="showing_button">Show ({data.pics.length} images)</button>
-                                            <a href={data.link} target="_blank" rel="noopener noreferrer" className="showing_button">Preview</a>
+                                            <button className="showing_button" onClick={()=>{setShow([data.id, data.title, data.pics])}}>Show ({data.pics.length} images)</button>
+                                            <a href={data.link} target="_blank" rel="noopener noreferrer" onClick={()=>{setPrev(data.id)}} className="showing_button">Preview</a>
                                         </div>
-                                        <img role="presentation" aria-hidden src={data.pics[0].publicURL} alt={data.title}/>
+                                        <img onClick={()=>{setShow([data.id, data.title, data.pics])}} role="presentation" aria-hidden src={data.pics[0].publicURL} alt={data.title}/>
                                     </div>
                                 </div>
                             </div>
@@ -71,6 +84,9 @@ const MainPortfolio = (props) => {
                     })}
 
             </div>
+            {/* This is modalComponent to showing...*/}
+            {(show[0]!==0)?<ModalComponent data={show} handleCloseModal={handleCloseModal}/>:''}
+            {(prev!==0)?<RepairTokenAndCrawl setToken={false} post_id="0" page_name={'prev-portfolio_'+prev}/>:''}
 	    </main>
     );
 };
