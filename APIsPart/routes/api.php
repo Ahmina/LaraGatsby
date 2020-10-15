@@ -21,3 +21,10 @@ Route::get('post/{id}', 'CommentController@getCommentsByPodtId');
 
 
 Route::post('/newmessage', 'MessageController@newMessage');
+
+
+Route::post('getnewcommentsbypostid/{id}', 'CommentController@getNewAndUpdateComments');
+
+Route::post('/newcomment', 'CommentController@newComment');
+Route::post('/editcomment', 'CommentController@editComment');
+Route::post('/deletecomment', 'CommentController@deleteComment');

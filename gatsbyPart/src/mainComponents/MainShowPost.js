@@ -17,12 +17,11 @@ const MainShowPost = (props) => {
                     <div className="post_blog_infs">
                             <span className="flot-right"> حرره: {props.post.frontmatter.author}</span>
                             <span className="flot-left"> بتاريخ: {props.post.frontmatter.date}</span>
-                    </div>        
+                    </div>
+                          
                 </div>
-
             </div>
-            <CommentsComponent id={props.post.frontmatter.id}/>
-
+            <CommentsComponent id={props.post.frontmatter.id} token={props.token} setToken={props.setToken}/>
 	    </main>
 
     );

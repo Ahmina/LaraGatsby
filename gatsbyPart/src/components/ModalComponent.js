@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef, useCallback } from 'react';
 import RepairTokenAndCrawl from '../mainComponents/RepairTokenAndCrawl';
 
 const ModalComponent = ({data, handleCloseModal}) => {
-    document.body.style.overflow = "hidden"
+	document.body.style.overflow = "hidden"
 
 	const scrollRef=useRef();
 	const [iPic, setIPic]= useState(0);
