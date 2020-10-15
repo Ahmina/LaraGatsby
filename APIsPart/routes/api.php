@@ -17,4 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/newcrawl', 'CrawlUserController@newCrawl');
 Route::get('/newtoken', 'AuthTokenController@createToken');
 
+Route::get('post/{id}', 'CommentController@getCommentsByPodtId');
+
+
 Route::post('/newmessage', 'MessageController@newMessage');
