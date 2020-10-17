@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Comment;
 use App\AuthToken;
+use App\HistoryOfChange;
 
 
 class CommentController extends Controller
@@ -12,10 +13,13 @@ class CommentController extends Controller
     // function to verify (all req) the token..
     public function verifyToken($tokenModel, $token, $type)
     {
+    
         $token_id=explode("_", $token);
         $id=$token_id[0];
+        
         if($id>0){
-            $verifyToken=$tokenModel::find($id);  
+            $verifyToken=$tokenModel::find($id);
+    
             if($verifyToken){
                 if($verifyToken->token==$token){
 
@@ -170,7 +174,7 @@ class CommentController extends Controller
 
     }
 
-    public function editComment(Comment $editComment, AuthToken $authToken, Request $request)
+    public function editComment(Comment $editComment, AuthToken $authToken, Request $request, HistoryOfChange $historyOfChangeModel)
     {
 
         $req=$request->dataReq;
@@ -189,6 +193,14 @@ class CommentController extends Controller
                 $edit= $editComment::where('id', $req['general_id_of_comment'])->first(['id', 'comment_id', 'comment_on', 'token_id', 'name', 'comment', 'modified', 'updated_at']);
                 //already checks in the construction the existence of (all)token
                 if($edit->token_id==$token_id[0]){
+                    $oldTextCommentModel= new $historyOfChangeModel;
+                    
+                    $oldTextCommentModel->general_id=$edit->id;
+                    $oldTextCommentModel->token_id=$edit->token_id;
+                    $oldTextCommentModel->old_comment=$edit->comment;
+                    
+                    
+                    $oldTextCommentModel->save();
 
                     $edit->modified=true;
                     $edit->comment=$req['comment'];
