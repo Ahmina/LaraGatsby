@@ -15,7 +15,7 @@ class CommentController extends Controller
         $token_id=explode("_", $token);
         $id=$token_id[0];
         if($id>0){
-            $verifyToken=$tokenModel::where('id', $id)->first();  
+            $verifyToken=$tokenModel::find($id);  
             if($verifyToken){
                 if($verifyToken->token==$token){
 
