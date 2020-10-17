@@ -263,7 +263,7 @@ class CommentController extends Controller
         if($validationReq){
 
             $token=$req['token'];
-            $verifyToken=$this->verifyToken($authToken, $req['token'], $type);
+            $verifyToken=$this->verifyToken($tokenModel, $token, 'delete');
             if($verifyToken['status']){
 
                 $token_id=explode("_", $token);
