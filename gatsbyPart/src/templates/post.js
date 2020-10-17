@@ -44,6 +44,7 @@ export const query = graphql`
     allMarkdownRemark (
       sort: { order: DESC, fields: [frontmatter___id] }
       filter: { fileAbsolutePath: { regex: "//posts//" } }
+      limit: 200
     ){
       edges {
         node {

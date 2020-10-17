@@ -1,6 +1,7 @@
 import React from 'react';
 import '../style/prism-vsc-dark-plus.css';
 import CommentsComponent from '../components/CommentsComponent';
+import SimilarPosts from '../components/SimilarPosts';
 
 const MainShowPost = (props) => {
 
@@ -21,6 +22,7 @@ const MainShowPost = (props) => {
                           
                 </div>
             </div>
+            <SimilarPosts sampleAllPost={props.allPost} sampleId={props.post.frontmatter.id} sampleKeyword={props.post.frontmatter.keyword} />
             <CommentsComponent id={props.post.frontmatter.id} token={props.token} setToken={props.setToken}/>
 	    </main>
 
