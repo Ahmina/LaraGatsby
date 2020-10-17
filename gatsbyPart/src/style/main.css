@@ -630,15 +630,20 @@ main{
 	padding: 1px 9px;
 	border-radius: 7px;
 	float: left;
+	margin: 0 2px;
 }
-.comment_element_date{
+.comment_element_i{
 	float: left;
-	padding: 1px 9px;
+	padding: 1px 0px;
 	border-radius: 7px;
 	margin-right: 5px;
 	color: #888;
 	margin-top: 2px;
+	margin: 2px 2px 0px 2px;
 
+}
+.comment_element_history-comment{
+	cursor: pointer;
 }
 .comment_element_date span{
 	display: none;

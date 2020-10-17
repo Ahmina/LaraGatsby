@@ -376,8 +376,15 @@ const CommentsComponent = (props) => {
                                     let date=new Date(el.updated_at);
                                     return(
                                         <li className="comment_element animateEntry" style={(el.comment_id!==el.comment_on)?styleCommentOn:styleCommentOnNo} key={el.comment_id}>
+                                            {/* Get old comments / Comments before modification */} 
+                                            {(el.modified===1)?
+                                            <span className="comment_element_i comment_element_history-comment comment_element_date">
+                                                <i className="fas fa-history"/>
+                                                <span>SOON</span>
+                                            </span>
+                                            :''}
                                             {/* Date publish/modify */}
-                                            <span className="comment_element_date">
+                                            <span className="comment_element_i comment_element_date">
                                                 <i className="fas fa-clock" />
                                                 <span>
                                                     {(el.modified===0)?'أضيف منذ':'عُدِّلَ منذ:'} {timeCalculator(dateNow, el.updated_at)}
