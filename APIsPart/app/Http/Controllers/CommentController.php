@@ -134,6 +134,11 @@ class CommentController extends Controller
                 $commentOnId=$req['comment_on_id'];
                 if($commentOnId<=0){
                     $commentOnId=$comment_id;
+                }else{
+                    $testClean=$comment::where(['post_id'=> $post_id, 'comment_id'=> $commentOnId])->first('clean');
+                    if($testClean->clean!=1){
+                        $commentOnId=$comment_id;
+                    }
                 }
 
                 $token_id=explode("_", $req['token']);
@@ -258,8 +263,8 @@ class CommentController extends Controller
         if($validationReq){
 
             $token=$req['token'];
-            
-            if($this->verifyToken($tokenModel, $token, 'delete')->status){
+            $verifyToken=$this->verifyToken($authToken, $req['token'], $type);
+            if($verifyToken['status']){
 
                 $token_id=explode("_", $token);
                 $id=$token_id[0];
