@@ -23,7 +23,7 @@ const MainShowPost = (props) => {
                 </div>
             </div>
             <SimilarPosts sampleAllPost={props.allPost} sampleId={props.post.frontmatter.id} sampleKeyword={props.post.frontmatter.keyword} />
-            <CommentsComponent id={props.post.frontmatter.id} token={props.token} setToken={props.setToken}/>
+            <CommentsComponent id_post={props.post.frontmatter.id} token_props={props.token} setToken_props={props.setToken}/>
 	    </main>
 
     );

@@ -4,7 +4,7 @@ import CommentForm from './CommentForm';
 import {funUpdateStateComments, timeCalculator, newCommentsCaseReverse} from './functionsOfComments';
 import EditCommentForm from './EditCommentForm';
 
-const CommentsComponent = (props) => {
+const CommentsComponent = ({id_post, token_props, setToken_props}) => {
 
 
     const [id, setId]=useState(0);
@@ -84,13 +84,13 @@ const CommentsComponent = (props) => {
     
 
     const getAllComments= useCallback(()=>{
-        axios.get(`http://localhost:8001/api/post/${props.id}`)
+        axios.get(`http://localhost:8001/api/post/${id_post}`)
         .then(res => 
             {    
                 setComments(res.data);
             }
         );
-    }, [props.id]);
+    }, [id_post]);
 
     useEffect(()=>{
         if(status!==0){
@@ -109,7 +109,7 @@ const CommentsComponent = (props) => {
             let id=tokenId[0];
             if(id>=1){
                 setId(+id);
-                props.setToken(tokenStorage);
+                setToken_props(tokenStorage);
             }
 
         }else{
@@ -130,7 +130,7 @@ const CommentsComponent = (props) => {
 
         }
 
-    },[tokenError]);
+    },[tokenError, setToken_props]);
 
     useEffect(()=>{
 
@@ -183,13 +183,13 @@ const CommentsComponent = (props) => {
         const getNewComments=
             setInterval(()=>{
                 const dataReq={
-                    token: props.token,
+                    token: token_props,
                     last_updated: lastTimeUpdated,
                     read: visible
     
                 };
 
-                axios.post(`http://localhost:8001/api/getnewcommentsbypostid/${props.id}`, {dataReq})
+                axios.post(`http://localhost:8001/api/getnewcommentsbypostid/${id_post}`, {dataReq})
                 .then(res => 
                     {
 
@@ -211,15 +211,18 @@ const CommentsComponent = (props) => {
     
         return () => clearInterval(getNewComments);
 
-    }, [comments, countComments, lastTimeUpdated, visible, getAllComments, props.id, props.token]);
+    }, [comments, countComments, lastTimeUpdated, visible, getAllComments, id_post, token_props]);
 
     //to update state:lasttimeUpdate (the comments) && 
     useEffect(()=>{
+        
+        const statusVar=status;
+        const lastTimeUpdatedVar=lastTimeUpdated;
 
         let letCountComments=comments.length;
         setCountComments(letCountComments);
 
-        let convertLastTime= new Date(lastTimeUpdated);
+        let convertLastTime= new Date(lastTimeUpdatedVar);
 
         comments.forEach((comment)=>{
             
@@ -228,7 +231,7 @@ const CommentsComponent = (props) => {
                 setLastTimeUpdated(comment.updated_at);
                 setDateLastComment(newDate);
 
-                if(status!==1 && status!==6 && status!==7){
+                if(statusVar!==1 && statusVar!==6 && statusVar!==7){
                     setStatus(5);
                 }
                 
@@ -323,7 +326,7 @@ const CommentsComponent = (props) => {
         if(wait!==true){
             setWait(true);
             const dataReq={
-                token: props.token,
+                token: token_props,
                 general_id_of_comment: id // general id
             };
             axios.post(`http://localhost:8001/api/deletecomment`, {dataReq})
@@ -352,7 +355,7 @@ const CommentsComponent = (props) => {
                     
                     <h3>{(comments.length>0)?'أضف تعليقك وأثري النقاش':'كن أول المعلقين! وأثري النقاش'}</h3>
                     
-                    <CommentForm token={props.token} lastTimeUpdated={lastTimeUpdated} countComments={countComments} setTokenError={setTokenError} comments={comments} setComments={setComments} styleEntryOrExit={styleFormCommentEntry} id={props.id} comment_on_id='0' setName={setName} setMail={setMail} name={name} mail={mail} setStatus={setStatus} bgName={bgName} bgMail={bgMail} setBgName={setBgName} setBgMail={setBgMail} placeholderComment="شاركنا رأيك"/>
+                    <CommentForm token={token_props} lastTimeUpdated={lastTimeUpdated} countComments={countComments} setTokenError={setTokenError} comments={comments} setComments={setComments} styleEntryOrExit={styleFormCommentEntry} id={id_post} comment_on_id='0' setName={setName} setMail={setMail} name={name} mail={mail} setStatus={setStatus} bgName={bgName} bgMail={bgMail} setBgName={setBgName} setBgMail={setBgMail} placeholderComment="شاركنا رأيك"/>
                 
 
                     {/*---Display all comments of this post---*/}
@@ -396,7 +399,7 @@ const CommentsComponent = (props) => {
                                             <b>{el.name}</b>
                                             
                                             {(editCommentId===el.id)
-                                            ?<EditCommentForm originalComment={el.comment} comment_id={el.id} token={props.token} setTokenError={setTokenError} comments={comments} setComments={setComments} showEditFormComment={showEditFormComment} setStatus={setStatus} styleEntryOrExit={styleEditFormCommentEntryOrExit} styleFormCommentEntry={styleFormCommentEntry} styleFormCommentExit={styleFormCommentExit} placeholderComment="أكتب التعديل المراد"/>
+                                            ?<EditCommentForm originalComment={el.comment} comment_id={el.id} token={token_props} setTokenError={setTokenError} comments={comments} setComments={setComments} showEditFormComment={showEditFormComment} setStatus={setStatus} styleEntryOrExit={styleEditFormCommentEntryOrExit} styleFormCommentEntry={styleFormCommentEntry} styleFormCommentExit={styleFormCommentExit} placeholderComment="أكتب التعديل المراد"/>
                                             :<p>{el.comment}</p>}
                                             
 
@@ -406,7 +409,7 @@ const CommentsComponent = (props) => {
                                                 {(el.token_id===id)?<button className="noButtonStyle comment_element_more_add-edit-delete" onClick={()=>{deletCommentFunction(el.id)}}>حذف</button>:''}
                                             </div>
                                             {(el.comment_id===commentOn)?
-                                            <CommentForm token={props.token} lastTimeUpdated={lastTimeUpdated} countComments={countComments} setTokenError={setTokenError} comments={comments} setComments={setComments} styleEntryOrExit={styleFormCommentEntryOrExit} id={props.id} comment_on_id={el.comment_id} setName={setName} setMail={setMail} name={name} mail={mail} setStatus={setStatus} bgName={bgName} bgMail={bgMail} setBgName={setBgName} setBgMail={setBgMail} placeholderComment="أضف رداً"/> 
+                                            <CommentForm token={token_props} lastTimeUpdated={lastTimeUpdated} countComments={countComments} setTokenError={setTokenError} comments={comments} setComments={setComments} styleEntryOrExit={styleFormCommentEntryOrExit} id={id_post} comment_on_id={el.comment_id} setName={setName} setMail={setMail} name={name} mail={mail} setStatus={setStatus} bgName={bgName} bgMail={bgMail} setBgName={setBgName} setBgMail={setBgMail} placeholderComment="أضف رداً"/> 
                                             :''}
                                         </li>
                                     );       
