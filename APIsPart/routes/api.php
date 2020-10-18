@@ -19,7 +19,6 @@ Route::get('/newtoken', 'AuthTokenController@createToken');
 
 Route::get('post/{id}', 'CommentController@getCommentsByPodtId');
 
-
 Route::post('/newmessage', 'MessageController@newMessage');
 
 
@@ -28,3 +27,5 @@ Route::post('getnewcommentsbypostid/{id}', 'CommentController@getNewAndUpdateCom
 Route::post('/newcomment', 'CommentController@newComment');
 Route::post('/editcomment', 'CommentController@editComment');
 Route::post('/deletecomment', 'CommentController@deleteComment');
+
+Route::get('/historycomments', 'HistoryOfChangeController@getAllList');

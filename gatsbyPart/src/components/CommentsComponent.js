@@ -3,6 +3,7 @@ import axios from 'axios';
 import CommentForm from './CommentForm';
 import {funUpdateStateComments, timeCalculator, newCommentsCaseReverse} from './functionsOfComments';
 import EditCommentForm from './EditCommentForm';
+import HistoryModal from './HistoryModal'
 
 const CommentsComponent = ({id_post, token_props, setToken_props}) => {
 
@@ -48,6 +49,9 @@ const CommentsComponent = ({id_post, token_props, setToken_props}) => {
 
     //To use in listener to determine if the user reading the post or not 
     const [visible, setVisible]=useState(true);
+
+    //To fetch the modified comments log
+    const [idCommentHistory, setIdCommentHistory]=useState(0);
 
     //style of the sub comments as "respond to a comment" 
     const styleCommentOn={
@@ -196,10 +200,10 @@ const CommentsComponent = ({id_post, token_props, setToken_props}) => {
                         //In case the numbers are not equal.. this method is not quick to implement.. but it is short.. because deletion will be rare..
                         let countResComments=(res.data.updated_new_comments)?res.data.updated_new_comments.length:0;
                         if(countResComments!==0){
-                            if(res.data.count_comments!==countResComments+countComments){
+                            if(res.data.count_comments!==countResComments+comments.length){
                                 getAllComments();
                                 setStatus(9);
-                            }else if(res.data.count_comments===countComments+res.data.updated_new_comments.length && countResComments>0){
+                            }else if(res.data.count_comments===comments.length+res.data.updated_new_comments.length && countResComments>0){
                                 //To "planting" new comments are in place
                                 setComments(funUpdateStateComments(comments, res.data.updated_new_comments, []));
                             }
@@ -211,7 +215,7 @@ const CommentsComponent = ({id_post, token_props, setToken_props}) => {
     
         return () => clearInterval(getNewComments);
 
-    }, [comments, countComments, lastTimeUpdated, visible, getAllComments, id_post, token_props]);
+    }, [comments, id_post, token_props]);
 
     //to update state:lasttimeUpdate (the comments) && 
     useEffect(()=>{
@@ -346,6 +350,20 @@ const CommentsComponent = ({id_post, token_props, setToken_props}) => {
         }
 
     }
+
+    //Regle the overflow.
+	useEffect(()=>{
+        if(idCommentHistory===0){
+            document.body.style.overflow="";
+        }
+
+    }, [idCommentHistory]);
+
+    //ِClose Modal comment history : HistoryModal
+    const handleCloseModal=()=>{
+        setIdCommentHistory(0);
+    }
+
     return (
         <div>
                         
@@ -380,11 +398,10 @@ const CommentsComponent = ({id_post, token_props, setToken_props}) => {
                                     return(
                                         <li className="comment_element animateEntry" style={(el.comment_id!==el.comment_on)?styleCommentOn:styleCommentOnNo} key={el.comment_id}>
                                             {/* Get old comments / Comments before modification */} 
-                                            {(el.modified===1)?
-                                            <span className="comment_element_i comment_element_history-comment comment_element_date">
+                                            {(el.modified!==0)?
+                                            <button onClick={()=>{setIdCommentHistory(el.id)}} className="comment_element_i comment_element_history-comment noButtonStyle">
                                                 <i className="fas fa-history"/>
-                                                <span>SOON</span>
-                                            </span>
+                                            </button>
                                             :''}
                                             {/* Date publish/modify */}
                                             <span className="comment_element_i comment_element_date">
@@ -421,6 +438,7 @@ const CommentsComponent = ({id_post, token_props, setToken_props}) => {
                 </div>
             </div>
 
+            {(idCommentHistory>0)?<HistoryModal generalIdComment={idCommentHistory} handleCloseModal={handleCloseModal}/>:''}
 
             {/* View message by status */}
             {(status===1)?

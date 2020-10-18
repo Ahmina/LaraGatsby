@@ -13,7 +13,10 @@ const MainPortfolio = (props) => {
 
     //This method is more "clean"
     useEffect(()=>{
-        document.body.style.overflow="";    
+        if(show[0]===0){
+            document.body.style.overflow="";
+        }
+
     }, [show]);
 
     return (
