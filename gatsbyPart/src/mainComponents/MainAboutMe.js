@@ -42,7 +42,7 @@ const MainAboutMe = () => {
                                 <div className="aboutme_good_at_item">ReactJS</div>
                                 <div className="aboutme_good_at_item">nodeJS</div>
                                 <div className="aboutme_good_at_item">ExpressJS</div>
-                                <div className="aboutme_good_at_item">Typescript</div>
+                                <div className="aboutme_good_at_item">TypeScript</div>
                                 <div className="aboutme_good_at_item">EcmaScript</div>
                                 <div className="aboutme_good_at_item">C/C++</div>
                                 <div className="aboutme_good_at_item">HTML</div>

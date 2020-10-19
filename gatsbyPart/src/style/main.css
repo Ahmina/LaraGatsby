@@ -1297,6 +1297,24 @@ ul>h2{
 .history_modal_date{
 	font-size: 14px;
 	float: left;
+	margin-left: 7px;
+	cursor: default;
+}
+.history_modal_date span{
+	display: none;
+	position: absolute;
+	white-space: nowrap;
+	direction: ltr;
+	text-align: center;
+	background-color: #4a4a4a;
+	color: #fff;
+	padding: 3px 6px;
+	left: 2px;
+	font-size: 13px;
+	border-radius: 5px;
+}
+.history_modal_date:hover span{
+	display: block;
 }
 .history_modal_text{
 	font-size: 18px;

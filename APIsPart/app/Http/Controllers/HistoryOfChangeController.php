@@ -7,7 +7,7 @@ use App\Comment;
 
 class HistoryOfChangeController extends Controller
 {
-    public function getAllList($generalId, HistoryOfChange $historyOfChangeModel, Comment $commentModel)
+    public function getAllList($generalId, HistoryOfChange $historyOfChangeModel)
     {
 
 
@@ -15,7 +15,7 @@ class HistoryOfChangeController extends Controller
         $list=$historyOfChangeModel::where('general_id', $generalId);
 
         if($list->count()>0){
-            $all=$list->get(['old_comment', 'date']);
+            $all=$list->get(['old_comment', 'updated_at']);
             $old=$list->first()->comment;
             
             if($old->clean){

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {dataBaseUrlAPI} from '../data/index'
+import {timeCalculator} from './functionsOfComments';
 import axios from 'axios';
 
 
@@ -32,7 +33,6 @@ const HistoryModal = ({generalIdComment, handleCloseModal}) => {
 		axios.get(`${baseUrlAPI}/historycomments/${generalIdComment}`)
 		.then(res =>{
 			if(mounted){
-				console.log(res.data);
 				if(res.data.status){
 
 					if(res.data.delete===true){
@@ -70,8 +70,10 @@ const HistoryModal = ({generalIdComment, handleCloseModal}) => {
 							return <li className="history_modal_content_comments_item" key={key}>
 									<p>
 										<span className="history_modal_name">{lastComment.name}</span>
-										<span className="history_modal_date">بتاريخ: {element.date}</span>
-									</p>
+										<span className="history_modal_date">
+											منذ: {timeCalculator('', element.updated_at)}
+											<span>{element.updated_at}</span>	
+										</span>									</p>
 									<p className="history_modal_text">{element.old_comment}</p>
 								</li>
 						
@@ -79,7 +81,11 @@ const HistoryModal = ({generalIdComment, handleCloseModal}) => {
 								<li className="history_modal_content_comments_item" key="last">
 									<p>
 										<span className="history_modal_name">{lastComment.name}</span>
-										<span className="history_modal_date">بتاريخ: {lastComment.date}</span>
+										<span className="history_modal_date">
+											منذ: {timeCalculator('', lastComment.date)}
+											<span>{lastComment.date}</span>	
+										</span>
+										
 									</p>
 									<p className="history_modal_text">{lastComment.comment}</p>
 								</li>

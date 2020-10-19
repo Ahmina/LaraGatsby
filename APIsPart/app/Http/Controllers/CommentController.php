@@ -219,7 +219,7 @@ class CommentController extends Controller
                     $oldTextCommentModel->general_id=$edit->id;
                     $oldTextCommentModel->token_id=$edit->token_id;
                     $oldTextCommentModel->old_comment=$edit->comment;
-                    $oldTextCommentModel->date=$edit->updated_at;
+                    $oldTextCommentModel->updated_at=$edit->updated_at;
                     
                     
                     $oldTextCommentModel->save();
