@@ -28,4 +28,4 @@ Route::post('/newcomment', 'CommentController@newComment');
 Route::post('/editcomment', 'CommentController@editComment');
 Route::post('/deletecomment', 'CommentController@deleteComment');
 
-Route::get('/historycomments', 'HistoryOfChangeController@getAllList');
+Route::get('/historycomments/{generalId}', 'HistoryOfChangeController@getAllList');

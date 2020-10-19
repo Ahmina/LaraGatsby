@@ -2,11 +2,14 @@ import React, {useState, useEffect} from 'react';
 import {dataBaseUrlAPI} from '../data/index'
 import axios from 'axios';
 
+
 const HistoryModal = ({generalIdComment, handleCloseModal}) => {
 	document.body.style.overflow = "hidden";
 	
 	const baseUrlAPI=dataBaseUrlAPI();
 	const [historyComments, setHistoryComments]=useState([]);
+	const [lastComment, setLastComment]=useState([]);
+	const [msg, setMsg]=useState('');
 
 	useEffect(()=>{
 		const keyboradEventListener = (e) =>{
@@ -26,13 +29,21 @@ const HistoryModal = ({generalIdComment, handleCloseModal}) => {
 	useEffect(()=>{
         let mounted=true;
 		
-		axios.get(`${baseUrlAPI}/historycomments`)
+		axios.get(`${baseUrlAPI}/historycomments/${generalIdComment}`)
 		.then(res =>{
 			if(mounted){
+				console.log(res.data);
 				if(res.data.status){
 
-					setHistoryComments(res.data.list_history_comments);
+					if(res.data.delete===true){
+						setMsg('هذا التعليق محذوف كلياً');
+					}else{
+						setHistoryComments(res.data.list_history_comments);
+						setLastComment(res.data.last_comment);
+					}
 				
+				}else{
+						setMsg('لا يوجد هذا الطلب');
 				}
 			}
 		});
@@ -41,7 +52,7 @@ const HistoryModal = ({generalIdComment, handleCloseModal}) => {
 
         return () => mounted = false;
 
-	}, [baseUrlAPI]);
+	}, [baseUrlAPI, generalIdComment]);
 
 	return (
 		<div className="zoom_modal" id="zoom_modal">
@@ -58,16 +69,23 @@ const HistoryModal = ({generalIdComment, handleCloseModal}) => {
 						{historyComments.map((element, key)=>{
 							return <li className="history_modal_content_comments_item" key={key}>
 									<p>
-										<span className="history_modal_name">{element.name}</span>
+										<span className="history_modal_name">{lastComment.name}</span>
 										<span className="history_modal_date">بتاريخ: {element.date}</span>
 									</p>
-									<p className="history_modal_text">{element.comment}</p>
+									<p className="history_modal_text">{element.old_comment}</p>
 								</li>
 						
 						})}
+								<li className="history_modal_content_comments_item" key="last">
+									<p>
+										<span className="history_modal_name">{lastComment.name}</span>
+										<span className="history_modal_date">بتاريخ: {lastComment.date}</span>
+									</p>
+									<p className="history_modal_text">{lastComment.comment}</p>
+								</li>
 					</ul>
 				</div>
-				:<div className="history_modal_loading"><i className="fas fa-spinner"/></div>}
+				:(msg)?<h2>{msg}</h2>:<div className="history_modal_loading"><i className="fas fa-spinner"/></div>}
 			</div>
 		
 		</div>

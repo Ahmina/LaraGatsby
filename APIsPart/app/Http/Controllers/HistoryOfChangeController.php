@@ -2,20 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\HistoryOfChange;
+use App\Comment;
 
 class HistoryOfChangeController extends Controller
 {
-    public function getAllList()
+    public function getAllList($generalId, HistoryOfChange $historyOfChangeModel, Comment $commentModel)
     {
-        $res['status']=true;
 
-        $fakeData=[];
-        $fakeData[0]=["name"=> 'Merro', "date"=> 'يوم كذا كذا كذا', "comment"=> 'هذا مثال فقط'];
-        $fakeData[1]=["name"=> 'Merro', "date"=> 'يوم كذا كذا كذا', "comment"=> 'هذا مثال فقط'];
 
-        $res['list_history_comments']=$fakeData;
-        
+
+        $list=$historyOfChangeModel::where('general_id', $generalId);
+
+        if($list->count()>0){
+            $all=$list->get(['old_comment', 'date']);
+            $old=$list->first()->comment;
+            
+            if($old->clean){
+
+                $res['status']=true;
+                $res['delete']=false;
+                $res['last_comment']=['name'=> $old->name, 'comment'=> $old->comment, 'date'=> $old->updated_at];
+                $res['list_history_comments']=$all;
+    
+            }else{
+                $res['status']=true;
+                $res['delete']=true;
+
+            }
+
+        }else{
+            $res['status']=false;
+        }
+
+
         return $res;
+
+
     }
 }

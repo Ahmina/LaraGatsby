@@ -1247,7 +1247,7 @@ tr:nth-child(even){
 	font-size: 60px;
 	color: #2c3e50;
 	text-align: center;
-	margin-top: 210px;
+	margin-top: 215px;
 	animation: spin 1300ms linear infinite;
 }
 .history_modal_content_comments{
@@ -1263,6 +1263,7 @@ tr:nth-child(even){
 	font-size: 20px;
 	list-style-type: none;
 	margin-top: 40px;
+	margin-bottom: 50px;
 }
 ul>h2{
 	font-family: Tajawal;
@@ -1275,8 +1276,8 @@ ul>h2{
 	box-sizing: border-box;
 	width: 100%;
 	padding: 1px 15px;
-	border-right: 3px solid #999;
-	border-bottom: 1px solid #bbb;
+	border-right: 4px solid #bbb;
+	border-bottom: 1px dashed #bbb;
 }
 .history_modal_content_comments_item>p{
 	margin-block-start: 7px;
@@ -1286,7 +1287,7 @@ ul>h2{
 .border-bottom{
 	width: 100%;
 	height: 1px;
-	border-bottom: 1px solid #999;
+	border-bottom: 1px dashed #bbb;
 }
 .history_modal_name{
 	font-size: 17px;
@@ -1301,6 +1302,7 @@ ul>h2{
 	font-size: 18px;
 	padding-bottom: 7px;
 	padding-right: 5px;
+	color: #444;
 }
 
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

@@ -107,34 +107,18 @@ const CommentsComponent = ({id_post, token_props, setToken_props}) => {
     }, [status]);
 
     useEffect(()=>{
-        let tokenStorage= localStorage.getItem('token_gats');
-        if(tokenStorage && tokenError===false){
-            let tokenId=tokenStorage.split("_");
-            let id=tokenId[0];
-            if(id>=1){
-                setId(+id);
-                setToken_props(tokenStorage);
-            }
-
-        }else{
-
-            axios.get(`http://localhost:8001/api/newtoken`)
-            .then(res => 
-                {
-  
-                    if(res.data.status){
-                        let token=res.data.token;
-                        localStorage.setItem('token_gats', token);
-                        setTokenError(false);
-
-                    }
-                }
-            );
-
-
+        
+        if(tokenError===true){
+            console.log('Token false');
         }
 
-    },[tokenError, setToken_props]);
+    },[tokenError]);
+
+    useEffect(()=>{
+        let tokenId=token_props.split("_");
+        let id=tokenId[0];
+        setId(+id);
+    },[token_props]);
 
     useEffect(()=>{
 

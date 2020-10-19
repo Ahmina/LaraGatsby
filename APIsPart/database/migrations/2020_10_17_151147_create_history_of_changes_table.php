@@ -18,6 +18,7 @@ class CreateHistoryOfChangesTable extends Migration
             $table->integer('general_id');
             $table->integer('token_id');
             $table->string('old_comment', 500); //Comment text before changing it
+            $table->dateTime('date');
             $table->timestamps();
         });
     }
