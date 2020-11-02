@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import axios from 'axios';
-import {dataBaseUrlAPI} from '../data/index'
+import {dataBaseUrlAPI} from '../data/index';
 import CommentForm from './CommentForm';
 import {funUpdateStateComments, timeCalculator, newCommentsCaseReverse} from './functionsOfComments';
 import EditCommentForm from './EditCommentForm';
@@ -9,6 +9,7 @@ import HistoryModal from './HistoryModal'
 const CommentsComponent = ({id_post, token_props, setToken_props}) => {
 
     const baseUrlAPI=dataBaseUrlAPI();
+
     const [id, setId]=useState(0);
     //Comments storage
     const [comments, setComments]=useState([]);
@@ -402,7 +403,7 @@ const CommentsComponent = ({id_post, token_props, setToken_props}) => {
                                             
                                             {(editCommentId===el.id)
                                             ?<EditCommentForm originalComment={el.comment} comment_id={el.id} token={token_props} setTokenError={setTokenError} comments={comments} setComments={setComments} showEditFormComment={showEditFormComment} setStatus={setStatus} styleEntryOrExit={styleEditFormCommentEntryOrExit} styleFormCommentEntry={styleFormCommentEntry} styleFormCommentExit={styleFormCommentExit} placeholderComment="أكتب التعديل المراد"/>
-                                            :<p>{el.comment}</p>}
+                                            :<pre>{el.comment}</pre>}
                                             
 
                                             <div className="comment_element_more">

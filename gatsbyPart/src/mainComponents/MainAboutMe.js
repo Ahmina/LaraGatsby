@@ -36,7 +36,7 @@ const MainAboutMe = () => {
                             <p>أستمتع بالتعلم، تكويد التحديات، الحلول الإبداعية والتطوير المستمر.. جهودي حالياً منصبة نحو إتقان المزيد حول تقنيات الويب ولغاته، ودخول مجال تطوير الموبايل.</p>
                             <h3>اللغات، الإطارات، المكتبات والتقنيات التي أجيدها وأستخدمها</h3>
                             <div className="aboutme_good_at noselect">             
-                            <div className="aboutme_good_at_item">PHP</div>
+                                <div className="aboutme_good_at_item">PHP</div>
                                 <div className="aboutme_good_at_item">Javascript</div>
                                 <div className="aboutme_good_at_item">Laravel</div>
                                 <div className="aboutme_good_at_item">ReactJS</div>
@@ -62,6 +62,8 @@ const MainAboutMe = () => {
                                 <div className="aboutme_good_at_item">Git</div>
                                 <div className="aboutme_good_at_item">__And more__</div>
                             </div>
+
+
                         </div>
 
                     </div>
